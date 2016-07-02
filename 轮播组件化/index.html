@@ -1,0 +1,208 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+		<title>模块化轮播</title>
+		<meta name="description" content="">
+		<meta name="keywords" content="">
+		<script src="https://apps.bdimg.com/libs/jquery/1.9.0/jquery.js"></script>
+	
+		<style type="text/css">
+		
+		html,body,ul,li,p{
+			margin: 0;
+			padding: 0;
+		}
+		li{
+			list-style: none;
+		}
+		a{
+			text-decoration: none;
+		}
+		
+		.carousel{
+			position: relative;
+			width: 310px;
+			height: 206px;
+			overflow: hidden;
+		}
+		.carousel .img-ct{
+			position: absolute;
+		}
+		.carousel .img-ct img{
+			width: 310px;
+			height: 206px;
+		}
+		.carousel .img-ct:after{
+			content: ' ';
+			display: block;
+			clear: both;
+		}
+		.carousel .img-ct li{
+			float: left;
+		}
+
+		.arrow{
+			position: absolute;
+		    top: 50%;
+		    margin-top: -15px;
+		    width: 30px;
+		    height: 30px;
+		    line-height: 30px;
+		    text-align: center;
+		    background: #4E443C;
+		    color: #fff;
+		    border-radius: 30px;
+		    box-shadow: 0 0 2px #999;
+		    opacity: 0.8
+		}
+		.arrow:hover {
+		    opacity: 1;
+		}
+		.pre{
+			left: 10px;
+		}
+		.next{
+			right: 10px;
+		}
+
+
+
+		</style>
+
+	</head>
+	<body>
+		<p>第一个轮播</p>
+		<div class="carousel" id="carousel1">
+			<ul class="img-ct">
+				<li><a href="#"><img src="imgs/1.gif"></a></li>
+				<li><a href="#"><img src="imgs/2.gif"></a></li>
+				<li><a href="#"><img src="imgs/3.gif"></a></li>
+				<li><a href="#"><img src="imgs/4.gif"></a></li>
+			</ul>
+			<a class="pre arrow" href="#"><</a>
+			<a class="next arrow" href="#">></a>
+		</div>
+		<p>第二个轮播</p>
+		<div class="carousel" id="carousel1">
+			<ul class="img-ct">
+				<li><a href="#"><img src="imgs/1.gif"></a></li>
+				<li><a href="#"><img src="imgs/2.gif"></a></li>
+				<li><a href="#"><img src="imgs/3.gif"></a></li>
+				<li><a href="#"><img src="imgs/4.gif"></a></li>
+			</ul>
+			<a class="pre arrow" href="#"><</a>
+			<a class="next arrow" href="#">></a>
+		</div>
+		<p>第三个轮播</p>
+		<div class="carousel" id="carousel1">
+			<ul class="img-ct">
+				<li><a href="#"><img src="imgs/1.gif"></a></li>
+				<li><a href="#"><img src="imgs/2.gif"></a></li>
+				<li><a href="#"><img src="imgs/3.gif"></a></li>
+				<li><a href="#"><img src="imgs/4.gif"></a></li>
+			</ul>
+			<a class="pre arrow" href="#"><</a>
+			<a class="next arrow" href="#">></a>
+		</div>
+
+
+		
+		<script type="text/javascript">
+		$(function(){
+
+			var Carousel_bo = (function(){
+
+				function init( carousel ) {
+
+					carousel.each(function() {
+						var car = $(this);
+						if (car.hasClass('Loaded')) {
+							return;
+						}
+
+						new Carousel(car);
+						car.addClass('Loaded')
+					});
+
+
+				}
+
+				function Carousel(carousel) {  //构造函数
+					this.carousel=carousel;
+					this.ct = carousel.find('.img-ct');
+					this.liArr = this.ct.find('li');
+					this.pre = carousel.find('.pre');
+					this.next = carousel.find('.next');
+					this.imgWidth = this.liArr.width();
+					this.imgSize = this.liArr.size();
+					this.clock=null;
+
+					this.ct.css('width', this.imgWidth * this.imgSize);
+					this.bind();
+					this.autoPlay();
+				}
+
+				Carousel.prototype = {
+
+					bind: function(){
+						
+						var _this = this;
+						this.next.on('click', function() {
+							_this.shownext();
+						});
+
+						this.pre.on('click', function() {
+							_this.showpre();
+						});
+
+						this.carousel.hover(function() {
+							clearInterval(_this.clock);
+						}, function() {
+							_this.autoPlay();
+						});
+
+
+					},
+
+					showpre: function(){
+
+						this.ct.prepend(this.ct.children().last());
+						this.ct.css('left', 0-this.imgWidth);
+						this.ct.stop().animate({'left': 0});
+
+					},
+
+					shownext:function(){
+						var _this = this;
+						this.ct.stop().animate({'left': 0-this.imgWidth},function(){
+							_this.ct.append(_this.ct.children('li').first());
+							_this.ct.css('left', 0);
+						});
+
+					},
+
+					autoPlay: function(){
+						
+						var _this = this;
+						this.clock = setInterval(function(){
+							_this.shownext();
+						}, 2000);
+
+					}
+
+				}
+
+				return {
+					init: init
+				}
+			})();
+
+			Carousel_bo.init($('.carousel'));
+
+		});
+		
+		</script>
+	</body>
+</html>
