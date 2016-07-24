@@ -8,12 +8,17 @@
 </head>
 <body>
 
-<button class="tanchu" id="tanchu1">弹出层1</button>
-<button class="tanchu" id="tanchu2">弹出层2</button>
-<button class="tanchu" id="tanchu3">弹出层3</button>
+<div class="container">
+	<div class="button_wrap">
+		<button class="tanchu" id="tanchu1">弹出层1</button>
+		<button class="tanchu" id="tanchu2">弹出层2</button>
+		<button class="tanchu" id="tanchu3">弹出层3</button>
+	</div>
+</div>
 
 <script src="http://apps.bdimg.com/libs/jquery/1.8.3/jquery.min.js"></script>
 <script src="js/main.js"></script>
+
 <script>
 $(function(){
 	$('#tanchu1').on('click', function(e) {
@@ -28,12 +33,7 @@ $(function(){
 		Dialogkuang.initstart('这是标题3','这是内容2这是内容2这是内容2这是内容2这是内容2这是内容2这是内容2这是内容2这是内容3是内容3这是内容2这是内容2这是内容2这是内容2这是内容2这是内容2这是内容2这是内容2这是内容2是内容3这是内容2这是内容2这是内容2这是内容2这是内容2这是内容2这是内容2这是内容2这是内容2是内容3这是内容2这是内容2这是内容2这是内容2这是内容2这是内容2这是内容2这是内容2这是内容2这是内容2这是内容2这是内容2这是内容2这是内容2这是内容2这是内容2这是内容2这是内容2是内容3这是内容2这是内容2这是内容2这是内容2这是内容2这是内容2这是内容2这是内容2这是内容2是内容3这是内容2这是内容2这是内容2这是内容2这是内容2这是内容2这是内容2这是内容2这是内容2是内容3这是内容2这是内容2这是内容2这是内容2这是内容2这是内容2这是内容2这是内容2这是内容2');
 		return false;
 	});
-
-
-
 })
-
-
 
 
 </script>
