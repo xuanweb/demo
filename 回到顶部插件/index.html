@@ -1,0 +1,81 @@
+<html>
+<head>
+	<title>回到顶部插件</title>
+	<meta charset="utf-8">
+	<link rel="stylesheet" href="css/font-awesome.min.css">
+	<style type="text/css">
+		*{
+			margin: 0;
+			padding: 0;
+		}
+		#backTop{
+			position: fixed;
+			right: 100px;
+			bottom: 100px;
+			cursor: pointer;
+			width: 60px;
+			height: 60px;
+			background-color: #000;
+			font-size: 30px;
+			text-align: center;
+			color: #fff;
+			border-radius: 30px;
+		}
+
+		#backTop i{
+			line-height: 60px;
+		}
+	</style>
+</head>
+<body>
+<div id="backTop"><i class="icon-chevron-up"></i></div>
+</body>
+<script src="http://apps.bdimg.com/libs/jquery/1.8.3/jquery.min.js"></script>
+<script>
+
+;(function($, window, document,undefined) {
+    var BackTop = function(ele, opt) {
+        this.$element = ele;
+        this.defaults = {
+			dest:0,
+			speed:300
+        };
+        this.options = $.extend({}, this.defaults, opt);
+        this.$hb = $('html,body');
+		this.move();
+    }
+    //定义BackTop的方法
+    BackTop.prototype = {
+		move: function(){
+			var ops = this.options;
+			var _this = this;
+			this.$element.on('click',function(){
+				if ($(window).scrollTop()!= ops.dest) {  // 没有到达目的地
+					if (!_this.$hb.is(':animated')) {  // 没有处于动画状态
+							_this.$hb.animate({scrollTop:ops.dest},ops.speed);  //满足前两个条件才执行动画
+					};
+				};
+			});
+
+		}
+    }
+
+    $.fn.backTop1 = function(options) {
+        return new BackTop(this, options);
+    }
+
+})(jQuery, window, document);
+
+$('#backTop').backTop1();  // 使用默认参数
+
+/*$('#backTop').backTop1({   // 传入参数
+	dest: 0,
+	speed: 100
+});*/
+
+for (var i = 0; i < 200; i++) {
+	$('body').append($('<p>'+i+'</p>'));
+}
+
+</script>
+</html>
